@@ -1,4 +1,8 @@
-# Nothing exemplary to test this time, you get it automatically after
-# meeting expectations
-echo "Pass all exemplary tests."
-exit 0
+#!/usr/bin/python3
+
+import test_e
+import unittest
+
+if __name__=="__main__":
+  suite = unittest.defaultTestLoader.loadTestsFromModule(test_e)
+  unittest.TextTestRunner().run(suite)
