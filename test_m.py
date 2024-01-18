@@ -11,7 +11,7 @@ def runcmd(cmd, input_text=None):
 
 class Tests(unittest.TestCase):
   @weight(1)
-  def testGuess(self):
+  def testGuess1(self):
     runcmd('clang -o guess guess.c')
     test_input = \
       '''
@@ -23,6 +23,44 @@ class Tests(unittest.TestCase):
       95
       92
       94
+      '''
+
+    output = runcmd('./guess', input_text=test_input).stdout
+
+    # See if output contains correct output somewhere
+    self.assertNotEqual(-1, output.find("Too low!"))
+    self.assertNotEqual(-1, output.find("Too high!"))
+    self.assertNotEqual(-1, output.find("Total guesses = 7"))
+
+  @weight(1)
+  def testGuess2(self):
+    runcmd('clang -o guess guess.c')
+    test_input = \
+      '''
+      3
+      47
+      '''
+
+    output = runcmd('./guess', input_text=test_input).stdout
+
+    # See if output contains correct output somewhere
+    self.assertEqual(-1, output.find("Too low!"))
+    self.assertEqual(-1, output.find("Too high!"))
+    self.assertNotEqual(-1, output.find("Total guesses = 1"))
+
+  @weight(1)
+  def testGuess3(self):
+    runcmd('clang -o guess guess.c')
+    test_input = \
+      '''
+      3
+      50
+      42
+      48
+      44
+      49
+      41
+      47
       '''
 
     output = runcmd('./guess', input_text=test_input).stdout
